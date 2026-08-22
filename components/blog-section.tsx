@@ -1,0 +1,173 @@
+"use client"
+
+import { useState, useRef, useCallback, useEffect } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import Image from "next/image"
+
+const blogPosts = [
+  {
+    categories: ["Market Insights"],
+    date: "Jan 25, 2025",
+    title: "Top 7 Things to Look for When Booking a Hotel",
+    description:
+      "A new premium residential complex opens with modern amenities and ocean views.",
+    image: "/images/blog/blog-1.jpg",
+  },
+  {
+    categories: ["Market Insights", "Hotel Booking"],
+    date: "Jan 25, 2025",
+    title: "Hidden Gems Near Our Hotel You Can't Miss",
+    description:
+      "Market trends show increased interest from both local and foreign investors.",
+    image: "/images/blog/blog-2.jpg",
+  },
+  {
+    categories: ["Market Insights"],
+    date: "Jan 25, 2025",
+    title: "What to Expect During Your Stay",
+    description:
+      "Office and retail spaces now open for lease in prime Masaki locations.",
+    image: "/images/blog/blog-3.jpg",
+  },
+  {
+    categories: ["Travel Tips"],
+    date: "Feb 10, 2025",
+    title: "Essential Packing Guide for Tropical Destinations",
+    description:
+      "Everything you need to know before heading to your dream beach getaway.",
+    image: "/images/blog/blog-1.jpg",
+  },
+  {
+    categories: ["Hotel Booking"],
+    date: "Feb 18, 2025",
+    title: "How to Get the Best Deals on Luxury Hotels",
+    description:
+      "Insider tips on scoring premium rooms at a fraction of the listed price.",
+    image: "/images/blog/blog-2.jpg",
+  },
+  {
+    categories: ["Travel Tips", "Market Insights"],
+    date: "Mar 05, 2025",
+    title: "Sustainable Travel: A Guide for Conscious Explorers",
+    description:
+      "How to enjoy world-class hospitality while minimizing your carbon footprint.",
+    image: "/images/blog/blog-3.jpg",
+  },
+]
+
+const CARDS_PER_PAGE = 3
+
+export default function BlogSection() {
+  const [currentPage, setCurrentPage] = useState(0)
+  const mobileSliderRef = useRef<HTMLDivElement>(null)
+
+  const totalPages = blogPosts.length
+
+  const scrollToPage = useCallback((page: number) => {
+    const slider = mobileSliderRef.current
+    if (!slider) return
+
+    slider.scrollTo({
+      left: slider.clientWidth * page,
+      behavior: "auto",
+    })
+
+    setCurrentPage(page)
+  }, [])
+
+  const goNext = () => {
+    if (currentPage < totalPages - 1) {
+      scrollToPage(currentPage + 1)
+    }
+  }
+
+  const goPrev = () => {
+    if (currentPage > 0) {
+      scrollToPage(currentPage - 1)
+    }
+  }
+
+  return (
+    <section className="px-6 py-16 md:px-12 lg:px-20">
+      <h2 className="mb-12 font-serif text-3xl italic text-[#1a1a2e] md:text-4xl lg:text-5xl">
+        Latest Insights & Updates
+      </h2>
+
+      <div className="block md:hidden">
+        <div
+          ref={mobileSliderRef}
+          className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
+        >
+          {blogPosts.map((post, index) => (
+            <div
+              key={index}
+              className="w-full flex-shrink-0 snap-start px-1"
+            >
+              <BlogCard post={post} />
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 flex items-center justify-between">
+          <span className="text-sm font-medium text-[#1a1a2e]">
+            {String(currentPage + 1).padStart(2, "0")} /{" "}
+            {String(totalPages).padStart(2, "0")}
+          </span>
+
+ 
+
+          <div className="flex items-center gap-3">
+ 
+          </div>
+        </div>
+      </div>
+
+    </section>
+  )
+}
+
+function BlogCard({
+  post,
+}: {
+  post: (typeof blogPosts)[number]
+}) {
+  return (
+    <article>
+      <div className="relative h-[260px] w-full overflow-hidden rounded-2xl">
+        <Image
+          src={post.image}
+          alt={post.title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 120vw,
+                 (max-width: 1200px) 50vw,
+                 33vw"
+        />
+      </div>
+
+      <div className="pt-4">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap gap-2">
+            {post.categories.map((cat, i) => (
+              <span
+                key={i}
+                className="rounded-full border border-[#c9d1db] px-3 py-1 text-xs font-medium text-[#1a1a2e]"
+              >
+                {cat}
+              </span>
+            ))}
+          </div>
+          <span className="text-xs text-[#6b7280]">{post.date}</span>
+        </div>
+
+        <h3 className="mb-2 text-base font-semibold text-[#1a1a2e]">
+          {post.title}
+        </h3>
+
+        <p className="text-sm leading-relaxed text-[#6b7280]">
+          {post.description}
+        </p>
+      </div>
+    </article>
+  )
+}
