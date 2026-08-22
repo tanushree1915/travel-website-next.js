@@ -1,0 +1,117 @@
+{
+  "deals": [
+    {
+      "propertyName": "Royal Rawal - Luxury Boutique Hotel",
+      "location": "Zanzibar, Tanzania",
+      "price": "TSh 64,500",
+      "tag": "Limited time deal"
+    },
+    {
+      "propertyName": "Two Seas Residence",
+      "location": "Jaipur, India",
+      "price": "TSh 64,500",
+      "tag": "Secret Deal"
+    },
+    {
+      "propertyName": "Two Seas Residence",
+      "location": "Mumbai, India",
+      "price": "TSh 64,500",
+      "tag": null
+    },
+    {
+      "propertyName": "Two Seas Residence",
+      "location": "Arusha, Tanzania",
+      "price": "TSh 64,500",
+      "tag": null
+    }
+  ],
+  "destinations": [
+    { "name": "Dubai" },
+    { "name": "Maldives" },
+    { "name": "Maasai Mara" },
+    { "name": "Vietnam" },
+    { "name": "Mumbai" },
+    { "name": "Rome" }
+  ],
+  "promos": [
+    {
+      "badge": "HSBCCC",
+      "headline": "UP TO 12% Off",
+      "subtitle": "on Hotels Booking in Zanzibar and Bali"
+    },
+    {
+      "badge": "TSFESTIVE",
+      "headline": "UP TSh 2500 Off",
+      "subtitle": "on Hotels Booking"
+    },
+    {
+      "badge": "TRAVELSIMBA",
+      "headline": "UP TO 40% Off",
+      "subtitle": "on Villa Booking in Zanzibar"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Mark Roberts",
+      "location": "USA",
+      "rating": 5,
+      "text": "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive."
+    },
+    {
+      "name": "Mark Roberts",
+      "location": "India",
+      "rating": 5,
+      "text": "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive."
+    },
+    {
+      "name": "Mark Roberts",
+      "location": "Kenya",
+      "rating": 5,
+      "text": "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive."
+    },
+    {
+      "name": "Mark Roberts",
+      "location": "Tanzania",
+      "rating": 5,
+      "text": "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive."
+    }
+  ],
+  "insights": [
+    {
+      "title": "Top 7 Things to Look for When Booking a Hotel",
+      "excerpt": "A new premium residential complex opens with modern amenities and ocean views.",
+      "categories": ["Market Insights"],
+      "date": "Jan 25, 2025"
+    },
+    {
+      "title": "Hidden Gems Near Our Hotel You Can't Miss",
+      "excerpt": "Market trends show increased interest from both local and foreign investors.",
+      "categories": ["Market Insights", "Hotel Booking"],
+      "date": "Jan 25, 2025"
+    },
+    {
+      "title": "What to Expect During Your Stay",
+      "excerpt": "Office and retail spaces now open for lease in prime Masaki locations.",
+      "categories": ["Market Insights"],
+      "date": "Jan 25, 2025"
+    },
+    {
+      "title": "Essential Packing Guide for Tropical Destinations",
+      "excerpt": "Everything you need to know before heading to your dream beach getaway.",
+      "categories": ["Travel Tips"],
+      "date": "Feb 10, 2025"
+    },
+    {
+      "title": "How to Get the Best Deals on Luxury Hotels",
+      "excerpt": "Insider tips on scoring premium rooms at a fraction of the listed price.",
+      "categories": ["Hotel Booking"],
+      "date": "Feb 18, 2025"
+    },
+    {
+      "title": "Sustainable Travel: A Guide for Conscious Explorers",
+      "excerpt": "How to enjoy world-class hospitality while minimizing your carbon footprint.",
+      "categories": ["Travel Tips", "Market Insights"],
+      "date": "Mar 05, 2025"
+    }
+  ]
+}
