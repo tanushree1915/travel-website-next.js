@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useCallback, useEffect } from "react"
+import { useState, useRef, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 
@@ -58,34 +58,28 @@ const blogPosts = [
 const CARDS_PER_PAGE = 3
 
 export default function BlogSection() {
-  const [currentPage, setCurrentPage] = useState(0)
+  const [mobilePage, setMobilePage] = useState(0)
+  const [desktopPage, setDesktopPage] = useState(0)
   const mobileSliderRef = useRef<HTMLDivElement>(null)
 
-  const totalPages = blogPosts.length
+  const totalMobilePages = blogPosts.length
+  const totalDesktopPages = Math.ceil(blogPosts.length / CARDS_PER_PAGE)
 
-  const scrollToPage = useCallback((page: number) => {
+  const scrollToMobilePage = useCallback((page: number) => {
     const slider = mobileSliderRef.current
     if (!slider) return
-
-    slider.scrollTo({
-      left: slider.clientWidth * page,
-      behavior: "auto",
-    })
-
-    setCurrentPage(page)
+    slider.scrollTo({ left: slider.clientWidth * page, behavior: "smooth" })
+    setMobilePage(page)
   }, [])
 
-  const goNext = () => {
-    if (currentPage < totalPages - 1) {
-      scrollToPage(currentPage + 1)
-    }
-  }
+  const goDesktopPrev = () => setDesktopPage((p) => Math.max(0, p - 1))
+  const goDesktopNext = () =>
+    setDesktopPage((p) => Math.min(totalDesktopPages - 1, p + 1))
 
-  const goPrev = () => {
-    if (currentPage > 0) {
-      scrollToPage(currentPage - 1)
-    }
-  }
+  const visiblePosts = blogPosts.slice(
+    desktopPage * CARDS_PER_PAGE,
+    desktopPage * CARDS_PER_PAGE + CARDS_PER_PAGE
+  )
 
   return (
     <section className="px-6 py-16 md:px-12 lg:px-20">
@@ -93,16 +87,14 @@ export default function BlogSection() {
         Latest Insights & Updates
       </h2>
 
+      {/* Mobile: one card at a time, swipeable */}
       <div className="block md:hidden">
         <div
           ref={mobileSliderRef}
           className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
         >
           {blogPosts.map((post, index) => (
-            <div
-              key={index}
-              className="w-full flex-shrink-0 snap-start px-1"
-            >
+            <div key={index} className="w-full flex-shrink-0 snap-start px-1">
               <BlogCard post={post} />
             </div>
           ))}
@@ -110,27 +102,70 @@ export default function BlogSection() {
 
         <div className="mt-6 flex items-center justify-between">
           <span className="text-sm font-medium text-[#1a1a2e]">
-            {String(currentPage + 1).padStart(2, "0")} /{" "}
-            {String(totalPages).padStart(2, "0")}
+            {String(mobilePage + 1).padStart(2, "0")} /{" "}
+            {String(totalMobilePages).padStart(2, "0")}
           </span>
-
- 
-
           <div className="flex items-center gap-3">
- 
+            <button
+              onClick={() => scrollToMobilePage(Math.max(0, mobilePage - 1))}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c9d1db]"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() =>
+                scrollToMobilePage(Math.min(totalMobilePages - 1, mobilePage + 1))
+              }
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c9d1db]"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
           </div>
         </div>
       </div>
 
+      {/* Desktop: 3-column grid, matches Figma */}
+      <div className="hidden md:block">
+        <div className="grid grid-cols-3 gap-8">
+          {visiblePosts.map((post, index) => (
+            <BlogCard key={index} post={post} />
+          ))}
+        </div>
+
+        <div className="mt-10 flex items-center justify-between">
+          <span className="text-sm font-medium text-[#1a1a2e]">
+            {String(desktopPage + 1).padStart(2, "0")} /{" "}
+            {String(totalDesktopPages).padStart(2, "0")}
+          </span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={goDesktopPrev}
+              disabled={desktopPage === 0}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c9d1db] disabled:opacity-40"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              onClick={goDesktopNext}
+              disabled={desktopPage === totalDesktopPages - 1}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c9d1db] disabled:opacity-40"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   )
 }
 
-function BlogCard({
-  post,
-}: {
-  post: (typeof blogPosts)[number]
-}) {
+function BlogCard({ post }: { post: (typeof blogPosts)[number] }) {
   return (
     <article>
       <div className="relative h-[260px] w-full overflow-hidden rounded-2xl">
@@ -139,9 +174,7 @@ function BlogCard({
           alt={post.title}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 120vw,
-                 (max-width: 1200px) 50vw,
-                 33vw"
+          sizes="(max-width: 768px) 120vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
 
@@ -170,4 +203,4 @@ function BlogCard({
       </div>
     </article>
   )
-}
+}   
