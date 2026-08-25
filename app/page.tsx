@@ -20,6 +20,8 @@ import {
   getPromosData,
 } from "@/lib/cms-data"
 
+export const revalidate = 0
+
 export default async function Page() {
   const [
     heroData,
