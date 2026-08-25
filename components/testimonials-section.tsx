@@ -1,29 +1,45 @@
 import { Star } from "lucide-react"
 
-const testimonials = [
+interface Testimonial {
+  id?: number
+  name: string
+  location: string
+  star_rating?: number
+  review_text: string
+}
+
+interface TestimonialsSectionProps {
+  data?: Testimonial[]
+}
+
+const defaultTestimonials: Testimonial[] = [
   {
-    text: "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive.",
     name: "Mark Roberts",
     location: "USA",
-    featured: true,
+    star_rating: 5,
+    review_text:
+      "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive.",
   },
   {
-    text: "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive.",
     name: "Mark Roberts",
     location: "India",
-    featured: false,
+    star_rating: 5,
+    review_text:
+      "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive.",
   },
   {
-    text: "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive.",
     name: "Mark Roberts",
     location: "Kenya",
-    featured: false,
+    star_rating: 5,
+    review_text:
+      "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive.",
   },
   {
-    text: "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive.",
     name: "Mark Roberts",
     location: "Tanzania",
-    featured: false,
+    star_rating: 5,
+    review_text:
+      "Working with DigitX was a pleasure. Their web design team created a stunning website that perfectly captured our brand's essence. The feedback from our customers has been overwhelmingly positive.",
   },
 ]
 
@@ -31,11 +47,13 @@ function TestimonialCard({
   text,
   name,
   location,
+  rating,
   featured,
 }: {
   text: string
   name: string
   location: string
+  rating: number
   featured: boolean
 }) {
   return (
@@ -46,9 +64,8 @@ function TestimonialCard({
           : "bg-white border border-gray-200 text-[#1a1a2e]"
       }`}
     >
-
       <div className="mb-5 flex gap-1">
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: rating }).map((_, i) => (
           <Star
             key={i}
             className={`h-5 w-5 ${
@@ -60,7 +77,6 @@ function TestimonialCard({
         ))}
       </div>
 
- 
       <p
         className={`text-[15px] leading-relaxed ${
           featured ? "text-white/90" : "text-gray-600"
@@ -68,7 +84,6 @@ function TestimonialCard({
       >
         {text}
       </p>
-
 
       <div className="mt-6">
         <p
@@ -78,6 +93,7 @@ function TestimonialCard({
         >
           {name}
         </p>
+
         <p
           className={`text-sm ${
             featured ? "text-white/70" : "text-gray-400"
@@ -90,7 +106,19 @@ function TestimonialCard({
   )
 }
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({
+  data = [],
+}: TestimonialsSectionProps) {
+  /*
+   * Keep the existing testimonials and append CMS testimonials.
+   * This prevents existing frontend content from disappearing
+   * when CMS entries are added.
+   */
+  const testimonials = [
+    ...defaultTestimonials,
+    ...data,
+  ]
+
   return (
     <section className="bg-white px-6 py-20 lg:px-20 lg:py-28">
       <div className="mx-auto max-w-7xl flex flex-col gap-16 lg:flex-row">
@@ -104,20 +132,20 @@ export default function TestimonialsSection() {
 
           <p className="mt-6 text-[16px] leading-relaxed text-gray-500">
             Our Clients success stories reflect our commitment to excellence.
-            See how we’ve helped them find their dream homes, sustainable
+            See how weâ€™ve helped them find their dream homes, sustainable
             investments and perfect getaways.
           </p>
         </div>
 
-       
         <div className="grid gap-6 sm:grid-cols-2 lg:w-[62%]">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
-              key={index}
-              text={testimonial.text}
+              key={testimonial.id ? `cms-${testimonial.id}` : `default-${index}`}
+              text={testimonial.review_text}
               name={testimonial.name}
               location={testimonial.location}
-              featured={testimonial.featured}
+              rating={testimonial.star_rating ?? 5}
+              featured={index === 0}
             />
           ))}
         </div>

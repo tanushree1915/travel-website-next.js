@@ -18,27 +18,22 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <nav className="absolute inset-x-0 top-0 z-50 w-full px-6 pt-5">
-      
+    <nav className="absolute inset-x-0 top-0 z-50 w-full px-[19px] pt-[40px]">
 
+      <div className="flex w-full items-center justify-between h-[48px]">
 
- 
-      <div className="flex w-full items-center justify-between">
-
-  
-        <Link href="/" className="flex-shrink-0">
+        <Link href="/" className="flex-shrink-0 h-[48px] flex items-center">
           <Image
             src="/images/logo.png"
             alt="Travel Simba"
-            width={160}
-            height={60}
+            width={113}
+            height={48}
             priority
             className="object-contain"
           />
         </Link>
 
-
-        <div className="hidden xl:flex items-center gap-10 rounded-none border border-white/20 bg-white/10 px-2 py-3 backdrop-blur-md">
+        <div className="hidden xl:flex items-center gap-[24px] rounded-[8px] bg-white/[0.23] px-[16px] py-[14px] backdrop-blur-[23px] h-[48px]">
 
           {navLinks.map((link) => (
             <Link
@@ -52,11 +47,9 @@ export default function Navbar() {
 
         </div>
 
+        <div className="hidden xl:flex items-center gap-4 h-[48px]">
 
-    
-        <div className="hidden xl:flex items-center gap-4">
-
-          <button className="flex items-center gap-2 rounded-none border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md transition hover:bg-white/20">
+          <button className="flex h-[48px] items-center gap-2 rounded-none border border-white/20 bg-white/10 px-4 backdrop-blur-md transition hover:bg-white/20">
 
             <Image
               src="/flags/flag.png"
@@ -74,34 +67,30 @@ export default function Navbar() {
 
           </button>
 
-
-
           <button
             aria-label="Wishlist"
-            className="flex h-10 w-10 items-center justify-center rounded-none border border-white/20 bg-white/10 backdrop-blur-md transition hover:bg-white/20"
+            className="flex h-[48px] w-[48px] items-center justify-center rounded-none border border-white/20 bg-white/10 backdrop-blur-md transition hover:bg-white/20"
           >
             <Heart className="h-5 w-5 text-white" />
           </button>
 
           <Link
-            href="#"
-            className="flex items-center gap-4 rounded-none bg-[#2E86AB] px-3 py-2 font-medium text-white transition hover:bg-[#256b8a]"
-          >
+  href="#"
+  className="flex h-[48px] items-center gap-[12px] rounded-[40px] bg-[#4FA8E8] pl-[12px] pr-[4px] py-[4px] text-[16px] font-normal leading-[22px] text-white transition hover:opacity-90"
+>
 
-            SIGN IN NOW
+  SIGN IN NOW
 
-            <span className="flex h-8 w-8 items-center justify-center rounded-none bg-white">
+  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white">
 
-              <ArrowRight className="h-4 w-4 text-[#2E86AB]" />
+    <ArrowRight className="h-4 w-4 text-[#4FA8E8]" />
 
-            </span>
+  </span>
 
-          </Link>
+</Link>
 
         </div>
 
-
-      
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="xl:hidden text-white"
@@ -110,7 +99,6 @@ export default function Navbar() {
         </button>
 
       </div>
-
 
       {mobileOpen && (
 
@@ -130,7 +118,6 @@ export default function Navbar() {
               </Link>
 
             ))}
-
 
             <div className="mt-4 flex items-center gap-4 border-t border-white/10 pt-4">
 

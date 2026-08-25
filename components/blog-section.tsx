@@ -4,7 +4,20 @@ import { useState, useRef, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 
-const blogPosts = [
+interface BlogPost {
+  id?: number
+  title: string
+  description: string
+  image: string
+  date: string
+  categories: string[]
+}
+
+interface BlogSectionProps {
+  data?: BlogPost[]
+}
+
+const defaultBlogPosts: BlogPost[] = [
   {
     categories: ["Market Insights"],
     date: "Jan 25, 2025",
@@ -57,24 +70,43 @@ const blogPosts = [
 
 const CARDS_PER_PAGE = 3
 
-export default function BlogSection() {
+export default function BlogSection({
+  data = [],
+}: BlogSectionProps) {
   const [mobilePage, setMobilePage] = useState(0)
   const [desktopPage, setDesktopPage] = useState(0)
   const mobileSliderRef = useRef<HTMLDivElement>(null)
 
+  const blogPosts = [
+    ...defaultBlogPosts,
+    ...data,
+  ]
+
   const totalMobilePages = blogPosts.length
-  const totalDesktopPages = Math.ceil(blogPosts.length / CARDS_PER_PAGE)
+  const totalDesktopPages = Math.max(
+    1,
+    Math.ceil(blogPosts.length / CARDS_PER_PAGE)
+  )
 
   const scrollToMobilePage = useCallback((page: number) => {
     const slider = mobileSliderRef.current
     if (!slider) return
-    slider.scrollTo({ left: slider.clientWidth * page, behavior: "smooth" })
+
+    slider.scrollTo({
+      left: slider.clientWidth * page,
+      behavior: "smooth",
+    })
+
     setMobilePage(page)
   }, [])
 
-  const goDesktopPrev = () => setDesktopPage((p) => Math.max(0, p - 1))
+  const goDesktopPrev = () =>
+    setDesktopPage((p) => Math.max(0, p - 1))
+
   const goDesktopNext = () =>
-    setDesktopPage((p) => Math.min(totalDesktopPages - 1, p + 1))
+    setDesktopPage((p) =>
+      Math.min(totalDesktopPages - 1, p + 1)
+    )
 
   const visiblePosts = blogPosts.slice(
     desktopPage * CARDS_PER_PAGE,
@@ -83,61 +115,87 @@ export default function BlogSection() {
 
   return (
     <section className="px-6 py-16 md:px-12 lg:px-20">
+
       <h2 className="mb-12 font-serif text-3xl italic text-[#1a1a2e] md:text-4xl lg:text-5xl">
         Latest Insights & Updates
       </h2>
 
-      {/* Mobile: one card at a time, swipeable */}
+      {/* Mobile */}
       <div className="block md:hidden">
         <div
           ref={mobileSliderRef}
           className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
         >
           {blogPosts.map((post, index) => (
-            <div key={index} className="w-full flex-shrink-0 snap-start px-1">
+  <div
+    key={post.id ? `cms-${post.id}` : `default-${index}`}
+    className="w-full flex-shrink-0 snap-start px-1"
+  >
+            
               <BlogCard post={post} />
             </div>
           ))}
         </div>
 
         <div className="mt-6 flex items-center justify-between">
+
           <span className="text-sm font-medium text-[#1a1a2e]">
             {String(mobilePage + 1).padStart(2, "0")} /{" "}
             {String(totalMobilePages).padStart(2, "0")}
           </span>
+
           <div className="flex items-center gap-3">
+
             <button
-              onClick={() => scrollToMobilePage(Math.max(0, mobilePage - 1))}
+              onClick={() =>
+                scrollToMobilePage(
+                  Math.max(0, mobilePage - 1)
+                )
+              }
               className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c9d1db]"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
+
             <button
               onClick={() =>
-                scrollToMobilePage(Math.min(totalMobilePages - 1, mobilePage + 1))
+                scrollToMobilePage(
+                  Math.min(
+                    totalMobilePages - 1,
+                    mobilePage + 1
+                  )
+                )
               }
               className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c9d1db]"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
+
           </div>
         </div>
       </div>
 
-      {/* Desktop: 3-column grid, matches Figma */}
+      {/* Desktop */}
       <div className="hidden md:block">
+
         <div className="grid grid-cols-3 gap-8">
-          {visiblePosts.map((post, index) => (
-            <BlogCard key={index} post={post} />
-          ))}
+     {visiblePosts.map((post, index) => (
+  <BlogCard
+    key={post.id ? `cms-${post.id}` : `default-${index}`}
+    post={post}
+  />
+))}
         </div>
 
         <div className="mt-10 flex items-center justify-between">
+
           <span className="text-sm font-medium text-[#1a1a2e]">
             {String(desktopPage + 1).padStart(2, "0")} /{" "}
             {String(totalDesktopPages).padStart(2, "0")}
           </span>
+
           <div className="flex items-center gap-3">
+
             <button
               onClick={goDesktopPrev}
               disabled={desktopPage === 0}
@@ -145,15 +203,20 @@ export default function BlogSection() {
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
+
             <button
               onClick={goDesktopNext}
-              disabled={desktopPage === totalDesktopPages - 1}
+              disabled={
+                desktopPage === totalDesktopPages - 1
+              }
               className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c9d1db] disabled:opacity-40"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
+
           </div>
         </div>
+
       </div>
 
       <style jsx>{`
@@ -161,14 +224,21 @@ export default function BlogSection() {
           display: none;
         }
       `}</style>
+
     </section>
   )
 }
 
-function BlogCard({ post }: { post: (typeof blogPosts)[number] }) {
+function BlogCard({
+  post,
+}: {
+  post: BlogPost
+}) {
   return (
     <article>
+
       <div className="relative h-[260px] w-full overflow-hidden rounded-2xl">
+
         <Image
           src={post.image}
           alt={post.title}
@@ -176,11 +246,15 @@ function BlogCard({ post }: { post: (typeof blogPosts)[number] }) {
           className="object-cover"
           sizes="(max-width: 768px) 120vw, (max-width: 1200px) 50vw, 33vw"
         />
+
       </div>
 
       <div className="pt-4">
+
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+
           <div className="flex flex-wrap gap-2">
+
             {post.categories.map((cat, i) => (
               <span
                 key={i}
@@ -189,8 +263,13 @@ function BlogCard({ post }: { post: (typeof blogPosts)[number] }) {
                 {cat}
               </span>
             ))}
+
           </div>
-          <span className="text-xs text-[#6b7280]">{post.date}</span>
+
+          <span className="text-xs text-[#6b7280]">
+            {post.date}
+          </span>
+
         </div>
 
         <h3 className="mb-2 text-base font-semibold text-[#1a1a2e]">
@@ -200,7 +279,9 @@ function BlogCard({ post }: { post: (typeof blogPosts)[number] }) {
         <p className="text-sm leading-relaxed text-[#6b7280]">
           {post.description}
         </p>
+
       </div>
+
     </article>
   )
-}   
+} 
