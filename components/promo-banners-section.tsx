@@ -20,7 +20,7 @@ export default function PromoBannersSection({
   if (!data.length) return null
 
   return (
-    <section className="px-6 py-12 md:px-12 lg:px-20">
+    <section className="px-6 py-0 md:px-12 lg:px-20">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {data.map((promo, index) => {
           const card = (

@@ -105,12 +105,6 @@ export default function ExploreDestinations({
   data,
   promos,
 }: ExploreDestinationsProps) {
-  /*
-   * CMS DESTINATIONS
-   *
-   * Convert the CMS data into the same format used by
-   * the default destinations.
-   */
   const cmsDestinations: Destination[] = (data ?? [])
     .filter(
       (dest) =>
@@ -122,31 +116,6 @@ export default function ExploreDestinations({
       imagePath: dest.image || dest.imagePath || "",
     }))
 
-  /*
-   * COMBINE DEFAULT + CMS DESTINATIONS
-   *
-   * Default destinations will stay visible.
-   *
-   * If the CMS contains a destination with the same name
-   * as a default destination, the CMS version will replace
-   * the default version.
-   *
-   * Example:
-   *
-   * Default:
-   * Dubai
-   * Maldives
-   * Mumbai
-   *
-   * CMS:
-   * Goa
-   *
-   * Result:
-   * Dubai
-   * Maldives
-   * Mumbai
-   * Goa
-   */
   const destinationsMap = new Map<string, Destination>()
 
   defaultDestinations.forEach((destination) => {
@@ -165,9 +134,6 @@ export default function ExploreDestinations({
 
   const destinations = Array.from(destinationsMap.values())
 
-  /*
-   * CMS PROMOS
-   */
   const cmsPromos: Promo[] = (promos ?? [])
     .filter(
       (promo) =>
@@ -179,12 +145,6 @@ export default function ExploreDestinations({
       imagePath: promo.image || promo.imagePath || "",
     }))
 
-  /*
-   * COMBINE DEFAULT + CMS PROMOS
-   *
-   * This prevents the same problem from happening to
-   * your existing promo banners when you add a new CMS promo.
-   */
   const promosMap = new Map<string, Promo>()
 
   defaultPromos.forEach((promo, index) => {
@@ -206,7 +166,7 @@ export default function ExploreDestinations({
   const allPromos = Array.from(promosMap.values())
 
   return (
-    <section className="bg-background py-8 sm:py-16 px-4 sm:px-6 lg:px-16">
+   <section className="bg-background pt-0 pb-0 mb-[60px] lg:mb-[80px] px-4 sm:px-6 lg:px-16">
       <div className="mx-auto w-full max-w-[1400px]">
 
         <h1 className="font-serif italic text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground">

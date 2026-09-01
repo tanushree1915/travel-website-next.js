@@ -109,18 +109,13 @@ function TestimonialCard({
 export default function TestimonialsSection({
   data = [],
 }: TestimonialsSectionProps) {
-  /*
-   * Keep the existing testimonials and append CMS testimonials.
-   * This prevents existing frontend content from disappearing
-   * when CMS entries are added.
-   */
   const testimonials = [
     ...defaultTestimonials,
     ...data,
   ]
 
   return (
-    <section className="bg-white px-6 py-20 lg:px-20 lg:py-28">
+    <section className="bg-white px-6 pt-0 pb-0 mb-[28px] lg:px-20 lg:pt-0 lg:pb-0 lg:mb-[100px]">
       <div className="mx-auto max-w-7xl flex flex-col gap-16 lg:flex-row">
 
         <div className="lg:w-[38%]">
@@ -140,7 +135,11 @@ export default function TestimonialsSection({
         <div className="grid gap-6 sm:grid-cols-2 lg:w-[62%]">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
-              key={testimonial.id ? `cms-${testimonial.id}` : `default-${index}`}
+              key={
+                testimonial.id
+                  ? `cms-${testimonial.id}`
+                  : `default-${index}`
+              }
               text={testimonial.review_text}
               name={testimonial.name}
               location={testimonial.location}

@@ -83,6 +83,7 @@ export default function BlogSection({
   ]
 
   const totalMobilePages = blogPosts.length
+
   const totalDesktopPages = Math.max(
     1,
     Math.ceil(blogPosts.length / CARDS_PER_PAGE)
@@ -114,7 +115,7 @@ export default function BlogSection({
   )
 
   return (
-    <section className="px-6 py-16 md:px-12 lg:px-20">
+    <section className="px-6 pt-0 pb-16 md:px-12 lg:px-20 lg:pt-0 lg:pb-16">
 
       <h2 className="mb-12 font-serif text-3xl italic text-[#1a1a2e] md:text-4xl lg:text-5xl">
         Latest Insights & Updates
@@ -127,11 +128,14 @@ export default function BlogSection({
           className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide"
         >
           {blogPosts.map((post, index) => (
-  <div
-    key={post.id ? `cms-${post.id}` : `default-${index}`}
-    className="w-full flex-shrink-0 snap-start px-1"
-  >
-            
+            <div
+              key={
+                post.id
+                  ? `cms-${post.id}`
+                  : `default-${index}`
+              }
+              className="w-full flex-shrink-0 snap-start px-1"
+            >
               <BlogCard post={post} />
             </div>
           ))}
@@ -179,12 +183,16 @@ export default function BlogSection({
       <div className="hidden md:block">
 
         <div className="grid grid-cols-3 gap-8">
-     {visiblePosts.map((post, index) => (
-  <BlogCard
-    key={post.id ? `cms-${post.id}` : `default-${index}`}
-    post={post}
-  />
-))}
+          {visiblePosts.map((post, index) => (
+            <BlogCard
+              key={
+                post.id
+                  ? `cms-${post.id}`
+                  : `default-${index}`
+              }
+              post={post}
+            />
+          ))}
         </div>
 
         <div className="mt-10 flex items-center justify-between">
@@ -284,4 +292,4 @@ function BlogCard({
 
     </article>
   )
-} 
+}

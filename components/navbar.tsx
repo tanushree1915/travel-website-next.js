@@ -18,18 +18,18 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <nav className="absolute inset-x-0 top-0 z-50 w-full px-[19px] pt-[40px]">
+    <nav className="absolute inset-x-0 top-0 z-50 w-full pl-[18px] pr-[17px] pt-[18px] md:px-5 md:pt-[20px] lg:px-6">
 
-      <div className="flex w-full items-center justify-between h-[48px]">
+      <div className="flex w-full items-center justify-between h-[42px] md:h-[48px]">
 
-        <Link href="/" className="flex-shrink-0 h-[48px] flex items-center">
+        <Link href="/" className="flex-shrink-0 h-[42px] md:h-[48px] flex items-center">
           <Image
             src="/images/logo.png"
             alt="Travel Simba"
             width={113}
             height={48}
             priority
-            className="object-contain"
+            className="w-[99px] h-[42px] object-contain md:w-[113px] md:h-[48px]"
           />
         </Link>
 

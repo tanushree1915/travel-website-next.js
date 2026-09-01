@@ -2,7 +2,7 @@ import StayCard from "@/components/stay-card"
 
 export default function DiscoverStays() {
   return (
-    <section className="w-full bg-background py-12 sm:py-16">
+    <section className="w-full bg-background pb-0 mb-[60px] lg:mb-[80px]">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-[40px]">
 
         <div className="mb-8 sm:mb-12 flex items-end justify-between">

@@ -58,7 +58,7 @@ export default function ExperiencesSection() {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
-    <section className="bg-background py-16 lg:py-24">
+    <section className="bg-background pt-0 pb-[60px] sm:pb-[60px] lg:pt-0 lg:pb-[100px]">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
 
         <div className="mb-10 flex flex-col justify-between gap-6 lg:mb-14 lg:flex-row lg:items-start">
@@ -76,76 +76,64 @@ export default function ExperiencesSection() {
           {experiences.map((exp, index) => {
 
             const isActive = activeIndex === index
-            const shouldAnimate = index % 2 === 0
 
             return (
               <motion.div
                 key={exp.id}
-                className={`relative overflow-hidden rounded-2xl ${
-                  index === 3 ? "text-right" : "text-left"
-                }`}
+                className="relative overflow-hidden rounded-2xl"
 
-                animate={
-                  shouldAnimate
-                    ? { flex: isActive ? 6 : 1 }
-                    : { flex: 2 }
-                }
+                animate={{ flex: isActive ? 6 : 1 }}
 
                 transition={{
-                  duration: shouldAnimate ? 1.4 : 0.2,
-                  delay: index * 0.15,
+                  duration: 1.4,
                   ease: "linear",
                 }}
 
-                onHoverStart={() => {
-                  if (shouldAnimate) setActiveIndex(index)
-                }}
-                onHoverEnd={() => {
-                  if (index !== 2) setActiveIndex(0)
-                }}
+                onHoverStart={() => setActiveIndex(index)}
+                onHoverEnd={() => setActiveIndex(0)}
               >
 
                 <Image
                   src={exp.imagePath}
                   alt={exp.title}
                   fill
-                  className={`object-cover ${
-                    index === 4 ? "scale-125" : ""
-                  }`}
+                  className="object-cover"
                 />
 
                 <motion.div
                   className="absolute inset-0 bg-black"
-                  animate={{
-                    opacity: shouldAnimate
-                      ? isActive
-                        ? 0.1
-                        : 0.8
-                      : 0.5,
-                  }}
+                  animate={{ opacity: isActive ? 0.1 : 0.8 }}
                 />
 
                 <motion.div
-                  className={`absolute inset-0 flex flex-col ${
-                    index % 3 === 0
-                      ? "justify-center items-end pr-10"
-                      : "justify-end pl-3 pb-3"
-                  }`}
-                  animate={{
-                    opacity: shouldAnimate ? (isActive ? 1 : 0.3) : 1,
-                  }}
+                  className="absolute inset-0 flex items-end justify-start p-4"
+                  animate={{ opacity: isActive ? 1 : 0.3 }}
                 >
-                  <span className="text-6xl text-white/20 tracking-widest">
-                    {exp.number}
-                  </span>
+                  {isActive ? (
+                    <div className="flex flex-col items-start">
+                      <span className="text-6xl text-white/20 tracking-widest">
+                        {exp.number}
+                      </span>
 
-                  <h3 className="text-xl text-white uppercase tracking-[6px]">
-                    {exp.title}
-                  </h3>
+                      <h3 className="mt-2 text-xl text-white uppercase tracking-[6px]">
+                        {exp.title}
+                      </h3>
 
-                  <p className="text-xs text-white/60 w-[120px] leading-tight">
-                    {exp.description.slice(0, 40)}...
-                  </p>
+                      <p className="mt-2 max-w-[320px] text-xs text-white/60 leading-tight">
+                        {exp.description}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="flex items-end gap-3 [writing-mode:vertical-rl] rotate-180">
+                      <span className="text-4xl text-white/20 tracking-widest">
+                        {exp.number}
+                      </span>
+
+                      <h3 className="whitespace-nowrap text-sm text-white uppercase tracking-[4px]">
+                        {exp.title}
+                      </h3>
+                    </div>
+                  )}
                 </motion.div>
 
               </motion.div>

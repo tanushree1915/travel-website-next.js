@@ -14,7 +14,7 @@ export default function StayCard({
   className,
 }: StayCardProps) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+        <div className={`relative overflow-hidden rounded-2xl ${className}`}>
       <Image
         src={imagePath}
         alt={label}

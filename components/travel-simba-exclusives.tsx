@@ -18,6 +18,7 @@ interface ExclusiveDeal {
 interface TravelSimbaExclusivesProps {
   data?: ExclusiveDeal[]
 }
+
 const defaultExclusiveDeals: ExclusiveDeal[] = [
   {
     name: "Royal Rawal - Luxury Boutique Hotel",
@@ -60,10 +61,10 @@ export default function TravelSimbaExclusives({
   const scrollRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
 
- const exclusiveDeals = [
-  ...defaultExclusiveDeals,
-  ...data,
-]
+  const exclusiveDeals = [
+    ...defaultExclusiveDeals,
+    ...data,
+  ]
 
   useEffect(() => {
     const container = scrollRef.current
@@ -134,7 +135,7 @@ export default function TravelSimbaExclusives({
   }
 
   return (
-    <section className="w-full bg-background py-10 sm:py-14 lg:py-16">
+    <section className="w-full bg-background pt-0 pb-0 mb-[60px] lg:mb-[80px]">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
 
         <h2 className="text-center md:text-left font-serif italic text-2xl sm:text-3xl lg:text-5xl text-foreground">

@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar"
+
 import HeroSection from "@/components/hero-section"
 import DiscoverStays from "@/components/discover-stays"
 import TravelSimbaExclusives from "@/components/travel-simba-exclusives"
@@ -41,16 +41,14 @@ export default async function Page() {
 
   return (
     <main>
-      <Navbar />
+      
 
       <HeroSection data={heroData} />
 
       <DiscoverStays />
 
-      {/* STEP 1: CMS-connected Travel Simba Exclusives */}
       <TravelSimbaExclusives data={dealsData} />
 
-      {/* DO NOT CHANGE — Popular Destinations is already working */}
       <ExploreDestinations data={destinationsData} />
 
       <PromoBannersSection data={promosData} />
@@ -59,7 +57,6 @@ export default async function Page() {
 
       <FeaturesStrip />
 
-      {/* Leave these unchanged for now */}
       <TestimonialsSection data={testimonialsData} />
 
       <BlogSection data={insightsData} />

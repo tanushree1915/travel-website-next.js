@@ -33,14 +33,14 @@ export default function Footer() {
 
           {/* Column 1 */}
           <div className="flex flex-col items-center sm:items-start">
-            <Image
-              src="/travel-simba-logo.png"
-              alt="Travel Simba Logo"
-              width={160}
-              height={50}
-              className="mb-4 h-auto w-auto object-contain"
-              priority
-            />
+           <Image
+  src="/images/logo.png"
+  alt="Travel Simba Logo"
+  width={160}
+  height={50}
+  className="mb-4 h-auto w-auto object-contain"
+  priority
+/>
 
             <div className="flex items-center gap-4">
               <Link href="#" className="text-[#1D8CC7] hover:text-[#156a9a]">

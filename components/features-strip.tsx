@@ -29,7 +29,7 @@ const features = [
 
 export default function FeaturesStrip() {
   return (
-    <section className="px-6 py-0 sm:px-2 lg:px-8">
+    <section className="px-6 py-0 sm:px-2 lg:px-8 mb-[60px] lg:mb-[100px]">
 
       <div className="w-full rounded-2xl bg-[#EEF3F8] px-6 py-10 sm:px-8 sm:py-12">
 
