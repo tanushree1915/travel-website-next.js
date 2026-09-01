@@ -49,10 +49,10 @@ export default function DashboardPage({ onNavigate }: DashboardPageProps) {
     day: "numeric",
   })
 
-  const totalItems = Object.values(counts).reduce(
-    (sum, count) => sum + (count ?? 0),
-    0
-  )
+  const totalItems = Object.values(counts).reduce<number>(
+  (sum, count) => sum + (count ?? 0),
+  0
+)
 
   return (
         <div style={{ paddingBottom: 40, flex: 1, display: "flex", flexDirection: "column" }}>
